@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: im-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: im-operator
+  template:
+    metadata:
+      labels:
+        name: im-operator
+    spec:
+      serviceAccountName: im-operator
+      containers:
+        - name: im-operator
+          # Replace this with the built image name
+          image:  dciangot/im-operator:v0.0.1
+          command:
+          - im-operator
+          imagePullPolicy: Always
+          env:
+            - name: default
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "im-operator"

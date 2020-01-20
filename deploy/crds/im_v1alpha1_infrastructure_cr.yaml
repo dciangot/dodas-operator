@@ -1,0 +1,7 @@
+apiVersion: im/v1alpha1
+kind: Infrastructure
+metadata:
+  name: example-infrastructure
+spec:
+  # Add fields here
+  size: 3
